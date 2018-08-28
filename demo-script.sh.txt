@@ -1,3 +1,3 @@
 #!/bin/bash
-source /home/botsoreilly/movielinesbot/bin/activate
-consumer_key="Qma144V4R5qYQsDHbcqNulf6j" consumer_secret="o2quPuxnua3tx4twJFWoxDRq0vwu72lVxvH3ro0Oq4Kbw31iUZ" access_token="1034037573784612864-RflGjwb9du7TiARnjR7HqdI9ZO5jFj" access_token_secret="OOQTO6wzdpvxmXGmZrXDI7BaiqAauTxIkermng1mx1CYi" python /home/botsoreilly/movielinesbot/bot.py
+source /home/my-bot/movielinesbot/bin/activate
+consumer_key="YOUR_CONSUMER_KEY_HERE" consumer_secret="YOUR_CONSUMER_SECRET_HERE" access_token="YOUR_ACCESS_TOKEN_HERE" access_token_secret="YOUR_ACCESS_TOKEN_SECRET_HERE" python /home/my-bot/movielinesbot/bot.py

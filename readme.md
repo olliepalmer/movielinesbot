@@ -1,7 +1,7 @@
 # Movie lines bot
 
 
-What does it do? It tweets one line from an alphabetised list of movie dialogue every five minutes, something I did in 2016 ([Github repo here](https://github.com/olliepalmer/48lines)). It was a quick exercise to get my rusty head around Twitter bots in 2018 (as opposed to the last time I made them about 5 years ago...).
+What does it do? It tweets one line from an alphabetised list of movie dialogue every five minutes. It was a quick exercise to get my rusty head aroung Twitter bots in 2018 (as opposed to the last time I made them about 5 years ago...).
 
 This bot can be found at [@al_film_betical](https://twitter.com/al_film_betical)
 
