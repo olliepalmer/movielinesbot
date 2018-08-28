@@ -54,30 +54,18 @@ for i, line in enumerate(f):
 			tweets = split_string(str=line, limit=250)
 			if (len(tweets) == 1):
 				print(tweets[0])
-				try:
-					api.update_status(tweets[0])
-				except tweepy.error.TweepError:
-				    pass
+				api.update_status(tweets[0])
 			else:
 				for counter, value in enumerate(tweets):
 					if (counter == 0):
 						content = value+"…"
-						try:
-							api.update_status(content)
-						except tweepy.error.TweepError:
-							pass 
+						api.update_status(content)
 					elif (counter == len(tweets)-1):
 						content = "…"+value
-						try:
-							api.update_status(content)
-						except tweepy.error.TweepError:
-							pass 
+						api.update_status(content)
 					else:
 						content = value+"…"
-						try:
-							api.update_status(content)
-						except tweepy.error.TweepError:
-							pass 
+						api.update_status(content)
 			# api.update_status(line)
 			update = str(datetime.now()) + "," + str(len(tweets)) + "," + str(line)
 			g.write(update)
