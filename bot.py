@@ -7,6 +7,10 @@ import tweepy
 import os
 from datetime import datetime
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+read_from = os.path.join(dir_path,'movie_lines-alphabetised.txt')
+log_file = os.path.join(dir_path,'lines_read.txt')
+
 # this authentication method is described [here](https://slackapi.github.io/python-slackclient/auth.html)
 # basically, when the command is run, instead of running:
 # $ python bot.py
@@ -25,39 +29,40 @@ api = tweepy.API(auth)
 
 
 # how many lines have we written already?
-num_lines = sum(1 for line in open('lines_read.txt'))
-print(num_lines)
+num_lines = sum(1 for line in open(log_file))
+total = sum(1 for line in open(read_from))
+print('line',num_lines,'/',total,',',total-num_lines,'left to read')
 
 # function for splitting long lines (some are very long)
 # splits strings into manageble chunks by word
 def split_string(str, limit, sep=" "):
-    words = str.split()
-    if max(map(len, words)) > limit:
-        raise ValueError("limit is too small")
-    res, part, others = [], words[0], words[1:]
-    for word in others:
-        if len(sep)+len(word) > limit-len(part):
-            res.append(part)
-            part = word
-        else:
-            part += sep+word
-    if part:
-        res.append(part)
-    return res
+	words = str.split()
+	if max(map(len, words)) > limit:
+		raise ValueError("limit is too small")
+	res, part, others = [], words[0], words[1:]
+	for word in others:
+		if len(sep)+len(word) > limit-len(part):
+			res.append(part)
+			part = word
+		else:
+			part += sep+word
+	if part:
+		res.append(part)
+	return res
 
 
-f = open('movie_lines-alphabetised.txt')
+f = open(read_from,'r')
 for i, line in enumerate(f):
 	if i == num_lines:
-		print(line, len(line))
-		with open('lines_read.txt','a') as g:
+		# print(line, len(line))
+		with open(log_file,'a') as g:
 			tweets = split_string(str=line, limit=250)
 			if (len(tweets) == 1):
 				print(tweets[0])
 				try:
 					api.update_status('\"'+tweets[0]+'\"')
 				except tweepy.error.TweepError:
-				    pass
+					pass
 			else:
 				for counter, value in enumerate(tweets):
 					if (counter == 0):
