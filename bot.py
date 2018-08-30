@@ -25,7 +25,7 @@ api = tweepy.API(auth)
 
 
 # how many lines have we written already?
-num_lines = sum(1 for line in open('lines_read.csv'))
+num_lines = sum(1 for line in open('lines_read.txt'))
 print(num_lines)
 
 # function for splitting long lines (some are very long)
@@ -50,22 +50,34 @@ f = open('movie_lines-alphabetised.txt')
 for i, line in enumerate(f):
 	if i == num_lines:
 		print(line, len(line))
-		with open('lines_read.csv','a') as g:
+		with open('lines_read.txt','a') as g:
 			tweets = split_string(str=line, limit=250)
 			if (len(tweets) == 1):
 				print(tweets[0])
-				api.update_status(tweets[0])
+				try:
+					api.update_status('\"'+tweets[0]+'\"')
+				except tweepy.error.TweepError:
+				    pass
 			else:
 				for counter, value in enumerate(tweets):
 					if (counter == 0):
-						content = value+"…"
-						api.update_status(content)
+						content = "\""+value+"…"
+						try:
+							api.update_status(content)
+						except tweepy.error.TweepError:
+							pass 
 					elif (counter == len(tweets)-1):
-						content = "…"+value
-						api.update_status(content)
+						content = "…"+value+"\""
+						try:
+							api.update_status(content)
+						except tweepy.error.TweepError:
+							pass 
 					else:
-						content = value+"…"
-						api.update_status(content)
+						content = value+"…\""
+						try:
+							api.update_status(content)
+						except tweepy.error.TweepError:
+							pass 
 			# api.update_status(line)
-			update = str(datetime.now()) + "," + str(len(tweets)) + "," + str(line)
+			update = str("\n"+tweets[0])
 			g.write(update)
